@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Github User</string>
+    <string name="about">Tentang Kami</string>
+    <string name="settings">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string name="account">Akun</string>
+    <string name="app_version">Github User untuk perangkat mobile v1.0.00</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Cari dengan username</string>
+</resources>
