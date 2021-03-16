@@ -14,10 +14,15 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.jetbrains.kotlin.android" version "1.4.20" apply false
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 

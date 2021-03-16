@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github User</string>
+
     <string name="about">Tentang Kami</string>
-    <string name="settings">Pengaturan</string>
     <string name="language">Bahasa</string>
     <string name="account">Akun</string>
+    <string name="popular">Populer</string>
+    <string name="repositories">Penyimpanan</string>
+    <string name="organizations">Organisasi</string>
+    <string name="starred">Berbintang</string>
+    <string name="notifications">Notifikasi</string>
+
     <string name="app_version">Github User untuk perangkat mobile v1.0.00</string>
+
     <string name="search">Cari</string>
     <string name="search_hint">Cari dengan username</string>
+
+    <string name="bottom_nav_txt_01">Beranda</string>
+    <string name="bottom_nav_txt_02">Jelajah</string>
+    <string name="bottom_nav_txt_03">Profil</string>
+    <string name="bottom_nav_txt_04">Pengaturan</string>
+
+    <string name="follower">Pengikut</string>
+    <string name="following">Mengikuti</string>
+
+    <!-- Temporary text -->
+    <string name="temp_name">Nama disini…</string>
+    <string name="temp_username">usernamesaya</string>
+    <string name="temp_company">Kantor Saya</string>
+    <string name="temp_link">link.com</string>
+    <string name="temp_location">Lokasi saya</string>
+    <string name="temp_number">0</string>
+    <string name="temp_repo_name">Nama Penyimpanan</string>
+    <string name="temp_repo_detail">Ini adalah detail penyimpanan</string>
+    <string name="temp_category_name">Nama Kategori</string>
+    <string name="temp_bio">Ini Bio saya…</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
