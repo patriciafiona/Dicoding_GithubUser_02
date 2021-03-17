@@ -31,7 +31,7 @@ class CustomSuggestionsAdapter(inflater: LayoutInflater?, val activity: MainActi
         position: Int
     ) {
 
-        holder.name.text = suggestion.name
+        holder.name.text = suggestion.login
 
         Glide.with(holder.itemView)
             .load(suggestion.avatar_url)

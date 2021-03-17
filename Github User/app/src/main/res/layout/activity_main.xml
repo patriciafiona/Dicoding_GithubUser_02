@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:mt_hint="Search here"
-        app:mt_placeholder="Input user name..."
+        app:mt_placeholder="Input username..."
         app:mt_maxSuggestionsCount="5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

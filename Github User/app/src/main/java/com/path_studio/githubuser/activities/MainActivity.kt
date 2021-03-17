@@ -2,9 +2,9 @@ package com.path_studio.githubuser.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.Navigation
@@ -13,11 +13,25 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter
+import com.path_studio.githubuser.BuildConfig
 import com.path_studio.githubuser.R
 import com.path_studio.githubuser.adapters.CustomSuggestionsAdapter
 import com.path_studio.githubuser.databinding.ActivityMainBinding
+import com.path_studio.githubuser.fragments.ProfileFragment
+import com.path_studio.githubuser.models.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var gitHubServiceitHubService: GitHubService
+    private lateinit var searchResult: Search
+    private var listSearchUserResult: ArrayList<User> = ArrayList()
+
+    companion object {
+        val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
+    }
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchBar: MaterialSearchBar
@@ -26,6 +40,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //init
+        gitHubServiceitHubService = CreateAPI.create()
 
         //Setting the Bottom Navigator
         setBottomNav()
@@ -36,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun settingSearch() {
         searchBar = findViewById(R.id.searchBar)
-        searchBar.setMaxSuggestionCount(5)
+        searchBar.setMaxSuggestionCount(8)
 
         //enable search bar callbacks
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -66,7 +83,8 @@ class MainActivity : AppCompatActivity() {
                 if (searchBar.text.isNotEmpty()) {
                     if (searchBar.text.length > 1) {
                         //get data that contain searchBar.text
-                        //...................
+                        customSuggestionsAdapter.suggestions = getSearchUserResult(searchBar.text.toString())
+                        searchBar.showSuggestionsList()
                     }
                 } else {
                     searchBar.clearSuggestions()
@@ -82,6 +100,26 @@ class MainActivity : AppCompatActivity() {
             override fun OnItemDeleteListener(position: Int, v: View) {}
         })
 
+    }
+
+    private fun getSearchUserResult(name: String): ArrayList<User>{
+        gitHubServiceitHubService.getSearchByUsername(name, ACCESS_TOKEN).enqueue(object : Callback<Search> {
+            override fun onResponse(
+                    call: Call<Search>,
+                    response: Response<Search>
+            ) {
+                if (response.isSuccessful) {
+                    searchResult = response.body() as Search
+                    listSearchUserResult = searchResult.items
+                }
+            }
+
+            override fun onFailure(call: Call<Search>, t: Throwable) {
+                Log.e("tag", "The Error is: ${t.message}")
+            }
+
+        })
+        return listSearchUserResult
     }
 
     private fun setBottomNav(){
