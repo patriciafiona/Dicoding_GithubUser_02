@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.path_studio.githubuser.BuildConfig
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.databinding.FragmentProfileBinding
@@ -30,7 +31,7 @@ class ProfileFragment : Fragment() {
 
     companion object {
         val MY_USERNAME = "patriciafiona"
-        val ACCESS_TOKEN = "token 89f1eab6d166797a023fadcc7c2e51817831cde2"
+        val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
     }
 
     override fun onCreateView(

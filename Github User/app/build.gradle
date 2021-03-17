@@ -4,6 +4,12 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+def apikeyPropertiesFile = file("apikey.properties")
+def apikeyProperties = new Properties()
+if (apikeyPropertiesFile.canRead()) {
+    apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
@@ -14,6 +20,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "GITHUB_API_KEY", apikeyProperties['GITHUB_API_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
