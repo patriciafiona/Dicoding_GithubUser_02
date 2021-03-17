@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.path_studio.githubuser.BuildConfig
+import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.MainActivity
+import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
 import com.path_studio.githubuser.databinding.FragmentProfileBinding
 import com.path_studio.githubuser.models.*
 import retrofit2.Call
@@ -65,17 +69,17 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getDataFromAPI(){
+        //get My Starred Repo
+        getMyStarredRepository()
+
         //get User Detail data from API
         getUserData()
 
         //get User Organization lits for get the total of organization
         getUserOrganization()
 
-        //get User Repositories
+        //get User Repositories ->>> Show All List of My Repo in Other Page
         getMyRepository()
-
-        //get My Starred Repo
-        getMyStarredRepository()
     }
 
     private fun getUserData(){
@@ -128,10 +132,6 @@ class ProfileFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     listRepos = response.body() as ArrayList<Repository>
-
-                    //show total repo
-                    binding.myRepository.text = listRepos.size.toString()
-
                 }
             }
 
@@ -154,6 +154,9 @@ class ProfileFragment : Fragment() {
                     //show total repo
                     binding.myStarred.text = listStarred.size.toString()
 
+                    //show popular repo using horizontal recycle view
+                    showPopularRepo()
+
                 }
             }
 
@@ -174,6 +177,10 @@ class ProfileFragment : Fragment() {
         binding.myFollowings.text = Utils.convertNumberFormat(listData.following)
         binding.myBio.text = Utils.checkEmptyValue(listData.bio.toString())
 
+        //show total repo
+        val totalRepo = listData.public_repos + listData.owned_private_repos
+        binding.myRepository.text = totalRepo.toString()
+
         Glide.with((activity as MainActivity).applicationContext)
             .load(listData.avatar_url)
             .apply(RequestOptions().override(500, 500))
@@ -186,6 +193,19 @@ class ProfileFragment : Fragment() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun showPopularRepo(){
+        val rvPopularRepo: RecyclerView = binding.rvPopularRepo
+        rvPopularRepo.setHasFixedSize(true)
+
+        showRecyclerList(rvPopularRepo, listStarred)
+    }
+
+    private fun showRecyclerList(rvApp: RecyclerView, list: ArrayList<Repository>) {
+        rvApp.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        val listAppAdapter = ListPopularRepoAdapter(list, activity as MainActivity)
+        rvApp.adapter = listAppAdapter
     }
 
 }

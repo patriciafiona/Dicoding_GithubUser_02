@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Layout"
+    android:paddingBottom="65dp"
     android:background="@color/grey_200"
     tools:context=".fragments.ProfileFragment">
 

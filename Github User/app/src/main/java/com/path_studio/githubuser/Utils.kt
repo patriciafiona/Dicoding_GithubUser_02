@@ -14,8 +14,8 @@ object Utils {
         return temp
     }
 
-    fun checkEmptyValue(temp: String): String{
-        return if (temp.isBlank()){
+    fun checkEmptyValue(temp: String?): String{
+        return if (temp.isNullOrBlank()){
             "-"
         }else{
             temp

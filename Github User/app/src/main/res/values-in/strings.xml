@@ -10,6 +10,7 @@
     <string name="organizations">Organisasi</string>
     <string name="starred">Berbintang</string>
     <string name="notifications">Notifikasi</string>
+    <string name="details">Detail</string>
 
     <string name="app_version">Github User untuk perangkat mobile v1.0.00</string>
 
@@ -23,6 +24,7 @@
 
     <string name="follower">Pengikut</string>
     <string name="following">Mengikuti</string>
+    <string name="follow">Ikuti</string>
 
     <!-- Temporary text -->
     <string name="temp_name">Nama disini…</string>
@@ -35,6 +37,7 @@
     <string name="temp_repo_detail">Ini adalah detail penyimpanan</string>
     <string name="temp_category_name">Nama Kategori</string>
     <string name="temp_bio">Ini Bio saya…</string>
+    <string name="temp_email">test@gmail.com</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

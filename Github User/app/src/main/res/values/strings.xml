@@ -9,6 +9,7 @@
     <string name="organizations">Organization</string>
     <string name="starred">Starred</string>
     <string name="notifications">Notifications</string>
+    <string name="details">Details</string>
 
     <string name="app_version">Github User for mobile v1.0.00</string>
 
@@ -22,6 +23,7 @@
 
     <string name="follower">Followers</string>
     <string name="following">Followings</string>
+    <string name="follow">Follow</string>
 
     <!-- Temporary text -->
     <string name="temp_name">Name here…</string>
@@ -34,7 +36,9 @@
     <string name="temp_repo_detail">This is repository details</string>
     <string name="temp_category_name">Category Name</string>
     <string name="temp_bio">My bio is here…</string>
+    <string name="temp_email">test@gmail.com</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="starred_repositories">Starred Repositories</string>
 </resources>

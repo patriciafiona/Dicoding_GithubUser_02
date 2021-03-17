@@ -11,5 +11,6 @@ data class Repository (
     var owner: User,
     var html_url: String,
     var description: String,
-    var language: String
+    var language: String?,
+    var stargazers_count: Int
 ): Parcelable

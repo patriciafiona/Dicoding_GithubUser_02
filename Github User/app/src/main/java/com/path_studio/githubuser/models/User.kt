@@ -15,8 +15,9 @@ data class User (
     var email: String?,
     var bio: String?,
     var public_repos: Int, //only get total public repositories
+    var owned_private_repos: Int,
     var followers: Int,
     var following: Int,
-    var created_at: String,
-    var updated_at: String,
+    var created_at: String?,
+    var updated_at: String?,
 ): Parcelable

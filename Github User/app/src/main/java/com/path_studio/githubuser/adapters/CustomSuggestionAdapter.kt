@@ -1,6 +1,7 @@
 package com.path_studio.githubuser.adapters
 
 import android.content.Intent
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter
 import com.path_studio.githubuser.R
+import com.path_studio.githubuser.activities.DetailUserActivity
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.models.User
 
 class CustomSuggestionsAdapter(inflater: LayoutInflater?, val activity: MainActivity) : SuggestionsAdapter<User, CustomSuggestionsAdapter.SuggestionHolder>(inflater)
 {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,9 +43,9 @@ class CustomSuggestionsAdapter(inflater: LayoutInflater?, val activity: MainActi
 
         holder.itemView.setOnClickListener {
             //show detail page
-            /*val i = Intent(activity, UserDetailActivity::class.java)
-            i.putExtra(UserDetailActivity.EXTRA_USER, suggestion)
-            activity.startActivity(i)*/
+            val i = Intent(activity, DetailUserActivity::class.java)
+            i.putExtra(DetailUserActivity.EXTRA_USER, suggestion)
+            activity.startActivity(i)
         }
     }
 
@@ -54,4 +57,5 @@ class CustomSuggestionsAdapter(inflater: LayoutInflater?, val activity: MainActi
         var name: TextView = itemView.findViewById(R.id.suggestion_appName)
         var avatar: ImageView = itemView.findViewById(R.id.suggestion_appLogo)
     }
+
 }

@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     searchResult = response.body() as Search
-                    listSearchUserResult = searchResult.items
+                    listSearchUserResult = searchResult.items // the result that stored in User is login, id, avatar_url, to get other we should call another api
                 }
             }
 
