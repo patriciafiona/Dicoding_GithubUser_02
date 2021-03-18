@@ -10,6 +10,8 @@
     <string name="starred">Starred</string>
     <string name="notifications">Notifications</string>
     <string name="details">Details</string>
+    <string name="starred_repositories">Starred Repositories</string>
+    <string name="no_data_found">No Data Found</string>
 
     <string name="app_version">Github User for mobile v1.0.00</string>
 
@@ -22,8 +24,9 @@
     <string name="bottom_nav_txt_04">Settings</string>
 
     <string name="follower">Followers</string>
-    <string name="following">Followings</string>
+    <string name="following">Following</string>
     <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
 
     <!-- Temporary text -->
     <string name="temp_name">Name here…</string>
@@ -40,5 +43,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="starred_repositories">Starred Repositories</string>
 </resources>

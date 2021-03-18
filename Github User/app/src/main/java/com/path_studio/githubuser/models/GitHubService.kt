@@ -45,4 +45,18 @@ interface GitHubService {
             @Query("q") username: String?,
             @Header("Authorization") accessToken: String
     ): Call<Search>
+
+    //getList followers
+    @GET("users/{username}/followers?per_page=100")
+    fun getUserFollowers(
+        @Path("username") username: String?,
+        @Header("Authorization") accessToken: String
+    ): Call<List<User>>
+
+    //getList following
+    @GET("users/{username}/following?per_page=100")
+    fun getUserFollowing(
+        @Path("username") username: String?,
+        @Header("Authorization") accessToken: String
+    ): Call<List<User>>
 }

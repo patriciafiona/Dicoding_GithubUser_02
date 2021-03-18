@@ -92,6 +92,7 @@
                 <TextView
                     android:id="@+id/myCompany"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/temp_company"
@@ -101,6 +102,7 @@
                 <ImageView
                     android:id="@+id/icon_d_02"
                     style="@style/DetailUserIcon"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_location_on_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_01" />
@@ -108,6 +110,7 @@
                 <TextView
                     android:id="@+id/myLocation"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/temp_location"
@@ -117,6 +120,7 @@
                 <ImageView
                     android:id="@+id/icon_d_03"
                     style="@style/DetailUserIcon"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_link_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_02" />
@@ -124,6 +128,7 @@
                 <TextView
                     android:id="@+id/myLink"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/temp_link"
@@ -134,53 +139,70 @@
                 <ImageView
                     android:id="@+id/icon_d_04"
                     style="@style/DetailUserIcon"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_person_outline_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_03" />
 
-                <TextView
-                    android:id="@+id/myFollowers"
-                    style="@style/DetailFollowNumber"
+                <LinearLayout
+                    android:id="@+id/followers_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintStart_toEndOf="@+id/icon_d_04"
-                    app:layout_constraintTop_toBottomOf="@+id/myLink" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/DetailFollowTxt"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/follower"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                    app:layout_constraintStart_toEndOf="@+id/myFollowers"
                     app:layout_constraintTop_toBottomOf="@+id/myLink"
-                    app:layout_constraintWidth_percent="0.2" />
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/myFollowers"
+                        style="@style/DetailFollowNumber" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/DetailFollowTxt"
+                        android:text="@string/follower" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_dot_grey_10"
-                    app:layout_constraintEnd_toStartOf="@+id/myFollowings"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/followers_container"
                     app:layout_constraintTop_toBottomOf="@+id/myLink" />
 
-                <TextView
-                    android:id="@+id/myFollowings"
-                    style="@style/DetailFollowNumber"
-                    android:layout_marginStart="5dp"
+                <LinearLayout
+                    android:id="@+id/followings_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/myLink" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/DetailFollowTxt"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/following"
-                    app:layout_constraintStart_toEndOf="@+id/myFollowings"
                     app:layout_constraintTop_toBottomOf="@+id/myLink"
-                    app:layout_constraintWidth_percent="0.2" />
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/myFollowings"
+                        style="@style/DetailFollowNumber" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/DetailFollowTxt"
+                        android:text="@string/following" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

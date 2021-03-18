@@ -1,5 +1,6 @@
 package com.path_studio.githubuser.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.path_studio.githubuser.models.CreateAPI
 import com.path_studio.githubuser.models.GitHubService
 import com.path_studio.githubuser.models.Repository
 import com.path_studio.githubuser.models.User
+import okhttp3.internal.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,10 +46,22 @@ class DetailUserActivity : AppCompatActivity() {
 
         //get User Details data from API & show all data into UI
         val data = intent.getParcelableExtra<User>(EXTRA_USER) as User
-        getUserData(data.login.toString())
+        getAndSetUserData(data.login.toString())
     }
 
-    private fun getUserData(username: String){
+    private fun setOnClick(){
+        binding.followersContainer.setOnClickListener {
+            //Go To Detail Follow Activity
+            goToDetailFollowActivity()
+        }
+
+        binding.followingsContainer.setOnClickListener {
+            //Go To Detail Follow Activity
+            goToDetailFollowActivity()
+        }
+    }
+
+    private fun getAndSetUserData(username: String){
         gitHubServiceitHubService.getUserDetail(username, ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
@@ -58,6 +72,9 @@ class DetailUserActivity : AppCompatActivity() {
 
                     //get My Starred Repo
                     getMyStarredRepository(detailUser.login.toString())
+
+                    //set onclick on following and follower
+                    setOnClick()
 
                     //hide loading indicator
                     showLoading(false)
@@ -70,14 +87,20 @@ class DetailUserActivity : AppCompatActivity() {
         })
     }
 
+    private fun goToDetailFollowActivity(){
+        val i = Intent(this, DetailFollowActivity::class.java)
+        i.putExtra(DetailFollowActivity.EXTRA_DETAIL_USER, detailUser)
+        startActivity(i)
+    }
+
     private fun showData(user: User){
         binding.detailUserName.text = user.name.toString()
         binding.detailUserUsername.text = user.login.toString()
-        binding.detailUserLocation.text = user.location.toString()
+        binding.detailUserLocation.text = Utils.checkEmptyValue(user.location.toString())
         binding.detailUserRepositories.text = (user.public_repos + user.owned_private_repos).toString()
-        binding.detailUserCompany.text = user.company.toString()
-        binding.detailUserEmail.text = user.email.toString()
-        binding.detailUserLink.text = user.blog.toString()
+        binding.detailUserCompany.text = Utils.checkEmptyValue(user.company.toString())
+        binding.detailUserEmail.text = Utils.checkEmptyValue(user.email.toString())
+        binding.detailUserLink.text = Utils.checkEmptyValue(user.blog.toString())
         binding.detailUserFollowers.text = Utils.convertNumberFormat(user.followers)
         binding.detailUserFollowings.text = Utils.convertNumberFormat(user.following)
 
@@ -107,7 +130,19 @@ class DetailUserActivity : AppCompatActivity() {
                     binding.detailUserStarred.text = listStarred.size.toString()
 
                     //show popular repo using horizontal recycle view
-                    showStarredRepo()
+                    if(listStarred.isNotEmpty()){
+                        binding.rvUsersStarredRepo.visibility = View.VISIBLE
+                        binding.noData.visibility = View.GONE
+                        binding.noDataTxt.visibility = View.GONE
+
+                        showStarredRepo()
+                    }else{
+                        //show no data icon
+                        binding.rvUsersStarredRepo.visibility = View.GONE
+                        binding.noData.visibility = View.VISIBLE
+                        binding.noDataTxt.visibility = View.VISIBLE
+                    }
+
 
                 }
             }

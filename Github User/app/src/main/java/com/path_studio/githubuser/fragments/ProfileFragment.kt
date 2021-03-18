@@ -1,5 +1,6 @@
 package com.path_studio.githubuser.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.path_studio.githubuser.BuildConfig
-import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
+import com.path_studio.githubuser.activities.DetailFollowActivity
+import com.path_studio.githubuser.activities.DetailUserActivity
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
 import com.path_studio.githubuser.databinding.FragmentProfileBinding
@@ -52,7 +54,7 @@ class ProfileFragment : Fragment() {
         gitHubServiceitHubService = CreateAPI.create()
 
         //get Data From API
-        getDataFromAPI()
+        getAndShowDataFromAPI()
 
         return view
     }
@@ -68,7 +70,7 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun getDataFromAPI(){
+    private fun getAndShowDataFromAPI(){
         //get My Starred Repo
         getMyStarredRepository()
 
@@ -90,6 +92,9 @@ class ProfileFragment : Fragment() {
 
                     //Show Data
                     showData()
+
+                    //set onclick on following and follower
+                    setOnClick()
 
                     //hide loading indicator
                     showLoading(false)
@@ -202,10 +207,28 @@ class ProfileFragment : Fragment() {
         showRecyclerList(rvPopularRepo, listStarred)
     }
 
-    private fun showRecyclerList(rvApp: RecyclerView, list: ArrayList<Repository>) {
-        rvApp.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+    private fun showRecyclerList(rv: RecyclerView, list: ArrayList<Repository>) {
+        rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         val listAppAdapter = ListPopularRepoAdapter(list, activity as MainActivity)
-        rvApp.adapter = listAppAdapter
+        rv.adapter = listAppAdapter
+    }
+
+    private fun setOnClick(){
+        binding.followersContainer.setOnClickListener {
+            //Go To Detail Follow Activity
+            goToDetailFollowActivity()
+        }
+
+        binding.followingsContainer.setOnClickListener {
+            //Go To Detail Follow Activity
+            goToDetailFollowActivity()
+        }
+    }
+
+    private fun goToDetailFollowActivity(){
+        val i = Intent(activity, DetailFollowActivity::class.java)
+        i.putExtra(DetailFollowActivity.EXTRA_DETAIL_USER, listData)
+        startActivity(i)
     }
 
 }

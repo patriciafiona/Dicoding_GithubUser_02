@@ -15,10 +15,19 @@ object Utils {
     }
 
     fun checkEmptyValue(temp: String?): String{
-        return if (temp.isNullOrBlank()){
-            "-"
-        }else{
-            temp
+        return when {
+            temp.isNullOrBlank() -> {
+                "-"
+            }
+            temp.isNullOrEmpty() -> {
+                "-"
+            }
+            temp.isNotEmpty() ->{
+                temp
+            }
+            else -> {
+                "-"
+            }
         }
     }
 

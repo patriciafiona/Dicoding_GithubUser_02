@@ -206,6 +206,7 @@
                 <TextView
                     android:id="@+id/detail_user_company"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/temp_company"
@@ -216,6 +217,7 @@
                     android:id="@+id/icon_d_02"
                     style="@style/DetailUserIcon"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_email_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_01" />
@@ -223,6 +225,7 @@
                 <TextView
                     android:id="@+id/detail_user_email"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/temp_email"
@@ -233,6 +236,7 @@
                     android:id="@+id/icon_d_03"
                     style="@style/DetailUserIcon"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_link_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_02" />
@@ -240,6 +244,7 @@
                 <TextView
                     android:id="@+id/detail_user_link"
                     style="@style/DetailUserTxt"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/temp_link"
@@ -251,53 +256,70 @@
                     android:id="@+id/icon_d_04"
                     style="@style/DetailUserIcon"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_person_outline_grey_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon_d_03" />
 
-                <TextView
-                    android:id="@+id/detail_user_followers"
-                    style="@style/DetailFollowNumber"
+                <LinearLayout
+                    android:id="@+id/followers_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintStart_toEndOf="@+id/icon_d_04"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_user_link" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/DetailFollowTxt"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/follower"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                    app:layout_constraintStart_toEndOf="@+id/detail_user_followers"
                     app:layout_constraintTop_toBottomOf="@+id/detail_user_link"
-                    app:layout_constraintWidth_percent="0.2" />
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/detailUserFollowers"
+                        style="@style/DetailFollowNumber" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/DetailFollowTxt"
+                        android:text="@string/follower" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_dot_grey_10"
-                    app:layout_constraintEnd_toStartOf="@+id/detail_user_followings"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/followers_container"
                     app:layout_constraintTop_toBottomOf="@+id/detail_user_link" />
 
-                <TextView
-                    android:id="@+id/detail_user_followings"
-                    style="@style/DetailFollowNumber"
-                    android:layout_marginStart="5dp"
+                <LinearLayout
+                    android:id="@+id/followings_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_user_link" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/DetailFollowTxt"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/following"
-                    app:layout_constraintStart_toEndOf="@+id/detail_user_followings"
                     app:layout_constraintTop_toBottomOf="@+id/detail_user_link"
-                    app:layout_constraintWidth_percent="0.2" />
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/detailUserFollowings"
+                        style="@style/DetailFollowNumber" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/DetailFollowTxt"
+                        android:text="@string/following" />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btn_follow"
@@ -334,6 +356,34 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:listitem="@layout/item_col_popular_repository" />
+
+                <ImageView
+                    android:id="@+id/no_data"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/no_data"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                <TextView
+                    android:id="@+id/no_data_txt"
+                    style="@style/TextContent.md"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/no_data_found"
+                    android:textColor="@color/purple_700"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_data" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

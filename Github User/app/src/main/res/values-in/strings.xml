@@ -11,6 +11,8 @@
     <string name="starred">Berbintang</string>
     <string name="notifications">Notifikasi</string>
     <string name="details">Detail</string>
+    <string name="starred_repositories">Favorit Penyimpanan</string>
+    <string name="no_data_found">Data Tidaak Ditemukan</string>
 
     <string name="app_version">Github User untuk perangkat mobile v1.0.00</string>
 
@@ -25,6 +27,7 @@
     <string name="follower">Pengikut</string>
     <string name="following">Mengikuti</string>
     <string name="follow">Ikuti</string>
+    <string name="unfollow">Tidak Ikuti</string>
 
     <!-- Temporary text -->
     <string name="temp_name">Nama disini…</string>

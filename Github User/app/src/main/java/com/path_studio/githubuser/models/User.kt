@@ -20,4 +20,5 @@ data class User (
     var following: Int,
     var created_at: String?,
     var updated_at: String?,
+    var type: String?
 ): Parcelable
