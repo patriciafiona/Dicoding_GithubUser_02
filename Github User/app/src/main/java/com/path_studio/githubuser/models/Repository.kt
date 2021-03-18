@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Repository (
     var id: Int,
     var name: String,
+    var full_name: String?,
     var isPrivate: Boolean,
     var owner: User,
     var html_url: String,

@@ -43,4 +43,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temp_fullname">username/reponame</string>
+    <string name="temp_notification_title">Here is the detail of notification</string>
+    <string name="temp_days">8d</string>
 </resources>

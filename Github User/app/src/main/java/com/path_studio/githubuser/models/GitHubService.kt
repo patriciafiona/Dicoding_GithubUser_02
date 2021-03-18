@@ -59,4 +59,10 @@ interface GitHubService {
         @Path("username") username: String?,
         @Header("Authorization") accessToken: String
     ): Call<List<User>>
+
+    //get My Notifications
+    @GET("notifications?per_page=20")
+    fun getMyNotifications(
+            @Header("Authorization") accessToken: String
+    ): Call<List<Notification>>
 }
