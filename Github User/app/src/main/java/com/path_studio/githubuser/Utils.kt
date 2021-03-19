@@ -2,6 +2,7 @@ package com.path_studio.githubuser
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -30,6 +31,15 @@ object Utils {
                 temp.toString()
             }
         }
+    }
+
+    fun getDaysAgo(daysAgo: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+
+        val pattern = "yyyy-MM-dd"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        return simpleDateFormat.format(calendar.time)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -87,7 +97,7 @@ object Utils {
         }
 
         //else
-        return listOf("?","-")
+        return listOf("?", "-")
     }
 
 }

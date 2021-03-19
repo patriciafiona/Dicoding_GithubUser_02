@@ -12,6 +12,7 @@
     <string name="details">Details</string>
     <string name="starred_repositories">Starred Repositories</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="trending_now">Trending Now</string>
 
     <string name="app_version">Github User for mobile v1.0.00</string>
 
@@ -40,12 +41,20 @@
     <string name="temp_category_name">Category Name</string>
     <string name="temp_bio">My bio is here…</string>
     <string name="temp_email">test@gmail.com</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="temp_fullname">username/reponame</string>
     <string name="temp_notification_title">Here is the detail of notification</string>
     <string name="temp_days">8d</string>
-    <string name="trending_now">Trending Now</string>
     <string name="temp_programming_language">Java</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="my_work">My Work</string>
+    <string name="issues">Issues</string>
+    <string name="discussions">Discussions</string>
+    <string name="contributors">Contributors</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorite_detail">Add favorite repositories for quick access at any time, without having to search</string>
+    <string name="add_repositories">Add Repositories</string>
+    <string name="chartDetail">Your profile contributions graph is a record of contributions you\'ve made to GitHub repositories.</string>
 </resources>

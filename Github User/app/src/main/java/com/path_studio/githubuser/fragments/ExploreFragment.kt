@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.path_studio.githubuser.R
+import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.adapters.ListFollowAdapter
@@ -46,7 +47,11 @@ class ExploreFragment : Fragment() {
     }
 
     private fun getTrendingFromAPI(){
-        CreateAPI.create().getTrendingRepo(ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<SearchRepo> {
+        //get last week date
+        val lastWeek:String = Utils.getDaysAgo(7)
+        val query = "created:>$lastWeek"
+
+        CreateAPI.create().getTrendingRepo(query, ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<SearchRepo> {
             override fun onResponse(
                 call: Call<SearchRepo>,
                 response: Response<SearchRepo>

@@ -3,11 +3,13 @@ package com.path_studio.githubuser.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.path_studio.githubuser.R
+import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.models.SearchRepo
 import de.hdodenhof.circleimageview.CircleImageView
@@ -22,14 +24,21 @@ class ListTrendingRepoAdapter(val searchRepo: SearchRepo, val activity: MainActi
         val data = searchRepo.items[position]
 
         Glide.with(holder.itemView.context)
+                .load(data.owner.avatar_url)
+                .apply(RequestOptions().override(800, 800))
+                .into(holder.dispBackground)
+
+        Glide.with(holder.itemView.context)
             .load(data.owner.avatar_url)
             .apply(RequestOptions().override(500, 500))
             .into(holder.dispAvatar)
 
         holder.dispUsername.text = data.owner.login
         holder.dispRepoName.text = data.name
-        holder.dispStarred.text = data.stargazers_count.toString()
-        holder.dispLanguage.text = data.language
+        holder.dispRepoDetail.text = data.description
+        holder.dispStarred.text = Utils.convertNumberFormat(data.stargazers_count)
+
+        holder.dispLanguage.text = Utils.checkEmptyValue(data.language)
 
         when(data.language){
             "Java" -> holder.dispLanguageIndicator.setImageResource(R.color.red)
@@ -52,10 +61,11 @@ class ListTrendingRepoAdapter(val searchRepo: SearchRepo, val activity: MainActi
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //var dispBackground: ImageView = itemView.findViewById(R.id.discover_background)
+        var dispBackground: ImageView = itemView.findViewById(R.id.discover_background)
         var dispAvatar: CircleImageView = itemView.findViewById(R.id.discover_avatar)
         var dispUsername: TextView = itemView.findViewById(R.id.discover_username)
         var dispRepoName: TextView = itemView.findViewById(R.id.discover_repo_name)
+        var dispRepoDetail: TextView = itemView.findViewById(R.id.discover_details)
         var dispStarred: TextView = itemView.findViewById(R.id.discover_starred)
         var dispLanguage: TextView = itemView.findViewById(R.id.discover_language)
         var dispLanguageIndicator: CircleImageView = itemView.findViewById(R.id.discover_langauge_indicator)

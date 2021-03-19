@@ -67,8 +67,9 @@ interface GitHubService {
     ): Call<List<Notification>>
 
     //get My Notifications
-    @GET("search/repositories?sort=stars&order=desc&q=created:>2021-03-12&per_page=20")
+    @GET("search/repositories?sort=stars&order=desc&per_page=20")
     fun getTrendingRepo(
+        @Query("q") created: String?,
         @Header("Authorization") accessToken: String
     ): Call<SearchRepo>
 }
