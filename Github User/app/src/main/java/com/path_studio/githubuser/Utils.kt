@@ -24,16 +24,10 @@ object Utils {
     fun checkEmptyValue(temp: String?): String{
         return when {
             temp.isNullOrBlank() -> {
-                "-"
-            }
-            temp.isNullOrEmpty() -> {
-                "-"
-            }
-            temp.isNotEmpty() ->{
-                temp
+                "No Data"
             }
             else -> {
-                "-"
+                temp.toString()
             }
         }
     }

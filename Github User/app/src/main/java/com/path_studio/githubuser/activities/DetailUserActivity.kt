@@ -1,14 +1,17 @@
 package com.path_studio.githubuser.activities
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
 import com.path_studio.githubuser.databinding.ActivityDetailUserBinding
@@ -44,9 +47,21 @@ class DetailUserActivity : AppCompatActivity() {
         showLoading(true)
         gitHubServiceitHubService = CreateAPI.create()
 
+        //set background animated
+        setBackgroundAnimated()
+
         //get User Details data from API & show all data into UI
         val data = intent.getParcelableExtra<User>(EXTRA_USER) as User
         getAndSetUserData(data.login.toString())
+    }
+
+    private fun setBackgroundAnimated(){
+        //Setting Gradient Animated Background
+        val constraintLayout: ConstraintLayout = binding.detailUserBackgroundAnimated
+        val animationDrawable = constraintLayout.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(4000)
+        animationDrawable.start()
     }
 
     private fun setOnClick(){
@@ -67,6 +82,9 @@ class DetailUserActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     detailUser = response.body() as User
 
+                    //check if user already followed by me: patricia fiona
+                    getAndCheckMyFollowing()
+
                     //Show Data
                     showData(detailUser)
 
@@ -82,6 +100,30 @@ class DetailUserActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, error: Throwable) {
+                Log.e("tag", "The Error is: ${error.message}")
+            }
+        })
+    }
+
+    private fun getAndCheckMyFollowing(){
+        CreateAPI.create().getUserFollowing(
+            DetailFollowActivity.USERNAME,
+            ProfileFragment.ACCESS_TOKEN
+        ).enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    val listMyFollowing = response.body() as ArrayList<User>
+
+                    val check = listMyFollowing.filter { it.login == detailUser.login}
+                    if (check.isNotEmpty()){
+                        binding.btnFollow.text = resources.getString(R.string.unfollow)
+                    }else{
+                        binding.btnFollow.text = resources.getString(R.string.follow)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, error: Throwable) {
                 Log.e("tag", "The Error is: ${error.message}")
             }
         })
@@ -108,6 +150,7 @@ class DetailUserActivity : AppCompatActivity() {
             .load(user.avatar_url)
             .apply(RequestOptions().override(800, 800))
             .into(binding.detailUserAvatar)
+
 
         if(MY_USERNAME.equals(user.login, true)){
             binding.btnFollow.visibility = View.GONE

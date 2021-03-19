@@ -46,4 +46,6 @@
     <string name="temp_fullname">username/reponame</string>
     <string name="temp_notification_title">Here is the detail of notification</string>
     <string name="temp_days">8d</string>
+    <string name="trending_now">Trending Now</string>
+    <string name="temp_programming_language">Java</string>
 </resources>

@@ -25,7 +25,7 @@ class ListFollowAdapter(val list: ArrayList<User>, val context: Context) : Recyc
         val user = list[position]
 
         holder.dispUsername.text = user.login
-        holder.dispType.text = Utils.checkEmptyValue(user.type)
+        holder.dispType.text = Utils.checkEmptyValue(user.type.toString())
 
         Glide.with(holder.itemView)
             .load(user.avatar_url.toString())
