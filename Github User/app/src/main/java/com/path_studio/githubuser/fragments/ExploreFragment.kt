@@ -6,8 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
@@ -31,6 +37,8 @@ class ExploreFragment : Fragment() {
 
     private lateinit var TrendingRepo: SearchRepo
 
+    private lateinit var skeleton: Skeleton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,12 +46,38 @@ class ExploreFragment : Fragment() {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        //init Skeleton
+        skeleton = binding.rvDiscover.applySkeleton(R.layout.item_col_trending_repo)
+        skeleton.maskCornerRadius = 20f
+
         showLoading(true)
+
+        //Set Animation
+        settingAnimation()
 
         //Get data & set trending recycle view
         getTrendingFromAPI()
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //Show Search Bar
+        (activity as MainActivity).setSearchBarVisibility(1)
+        (activity as MainActivity).clearSearchBar()
+    }
+
+    private fun settingAnimation(){
+        //Setting trending banner image
+        val image: ImageView = binding.trendingBannerImg
+        val fadeImgAnim: Animation = AnimationUtils.loadAnimation((activity as MainActivity).applicationContext, R.anim.fade_in)
+        image.startAnimation(fadeImgAnim)
+
+        //Setting trending banner Text
+        val text: TextView = binding.trendingBannerText
+        val fadeTxtAnim: Animation = AnimationUtils.loadAnimation((activity as MainActivity).applicationContext, R.anim.fade_in_and_slide)
+        fadeTxtAnim.startOffset = 500
+        text.startAnimation(fadeTxtAnim)
     }
 
     private fun getTrendingFromAPI(){
@@ -68,6 +102,7 @@ class ExploreFragment : Fragment() {
 
             override fun onFailure(call: Call<SearchRepo>, t: Throwable) {
                 Log.e("tag", "The Error is: ${t.message}")
+                Utils.showFailedGetDataFromAPI(activity as MainActivity)
             }
 
         })
@@ -86,17 +121,11 @@ class ExploreFragment : Fragment() {
         rv.adapter = listAppAdapter
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //Show Search Bar
-        (activity as MainActivity).setSearchBarVisibility(1)
-        (activity as MainActivity).clearSearchBar()
-    }
-
     private fun showLoading(state: Boolean) {
         if (state) {
-            binding.progressBar.visibility = View.VISIBLE
+            skeleton.showSkeleton()
         } else {
-            binding.progressBar.visibility = View.GONE
+            skeleton.showOriginal()
         }
     }
 

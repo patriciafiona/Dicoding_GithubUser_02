@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.faltenreich.skeletonlayout.Skeleton
 import com.path_studio.githubuser.BuildConfig
+import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
 import com.path_studio.githubuser.activities.DetailUserActivity
@@ -29,9 +31,12 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var listData: User
-    private lateinit var listRepos: ArrayList<Repository>
     private lateinit var listOrgs: ArrayList<Organization>
     private lateinit var listStarred: ArrayList<Repository>
+
+    private lateinit var skeleton: Skeleton
+
+    private var showDialog: Boolean = true //if one of the get method is already error, the other error won't show the Alert Dialog
 
     private lateinit var gitHubServiceitHubService: GitHubService
 
@@ -46,6 +51,9 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        //init Skeleton
+        skeleton = binding.skeletonLayout
 
         //show loading indicator
         showLoading(true)
@@ -77,11 +85,8 @@ class ProfileFragment : Fragment() {
         //get User Detail data from API
         getUserData()
 
-        //get User Organization lits for get the total of organization
+        //get User Organization list for get the total of organization
         getUserOrganization()
-
-        //get User Repositories ->>> Show All List of My Repo in Other Page
-        getMyRepository()
     }
 
     private fun getUserData(){
@@ -103,6 +108,11 @@ class ProfileFragment : Fragment() {
 
             override fun onFailure(call: Call<User>, error: Throwable) {
                 Log.e("tag", "The Error is: ${error.message}")
+
+                if(showDialog){
+                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
+                    showDialog = false
+                }
             }
         })
     }
@@ -124,24 +134,11 @@ class ProfileFragment : Fragment() {
 
             override fun onFailure(call: Call<List<Organization>>, t: Throwable) {
                 Log.e("tag", "The Error is: ${t.message}")
-            }
 
-        })
-    }
-
-    private fun getMyRepository(){
-        gitHubServiceitHubService.getMyRepositories(ACCESS_TOKEN).enqueue(object : Callback<List<Repository>> {
-            override fun onResponse(
-                call: Call<List<Repository>>,
-                response: Response<List<Repository>>
-            ) {
-                if (response.isSuccessful) {
-                    listRepos = response.body() as ArrayList<Repository>
+                if(showDialog){
+                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
+                    showDialog = false
                 }
-            }
-
-            override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                Log.e("tag", "The Error is: ${t.message}")
             }
 
         })
@@ -167,6 +164,11 @@ class ProfileFragment : Fragment() {
 
             override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
                 Log.e("tag", "The Error is: ${t.message}")
+
+                if(showDialog){
+                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
+                    showDialog = false
+                }
             }
 
         })
@@ -194,9 +196,9 @@ class ProfileFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            binding.progressBar.visibility = View.VISIBLE
+            skeleton.showSkeleton()
         } else {
-            binding.progressBar.visibility = View.GONE
+            skeleton.showOriginal()
         }
     }
 

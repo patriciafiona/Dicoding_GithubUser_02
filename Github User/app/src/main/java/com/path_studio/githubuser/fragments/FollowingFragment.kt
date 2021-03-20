@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
+import com.path_studio.githubuser.activities.DetailUserActivity
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.adapters.ListFollowAdapter
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
@@ -62,6 +64,7 @@ class FollowingFragment : Fragment() {
 
             override fun onFailure(call: Call<List<User>>, error: Throwable) {
                 Log.e("tag", "The Error is: ${error.message}")
+                Utils.showFailedGetDataFromAPI(activity as DetailUserActivity)
             }
         })
 

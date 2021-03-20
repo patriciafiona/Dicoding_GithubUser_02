@@ -1,24 +1,25 @@
 package com.path_studio.githubuser.fragments
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.path_studio.githubuser.R
+import com.path_studio.githubuser.Utils.showFailedGetDataFromAPI
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.databinding.FragmentHomeBinding
-import com.path_studio.githubuser.databinding.FragmentProfileBinding
-import com.path_studio.githubuser.models.ContributionData
-import lecho.lib.hellocharts.gesture.ZoomType
-import lecho.lib.hellocharts.model.Axis
-import lecho.lib.hellocharts.model.Column
-import lecho.lib.hellocharts.model.ColumnChartData
-import lecho.lib.hellocharts.view.ColumnChartView
+
 
 class HomeFragment : Fragment() {
 
@@ -26,41 +27,38 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        setCharts()
-
-        val myWebView: WebView = binding.contributorImg
-        myWebView.loadUrl("https://ghchart.rshah.org/patriciafiona")
+        setGithubContribution()
 
         return view
     }
 
-    private fun setCharts(){
-        val contrib_chart: ColumnChartView = binding.contributionsChart
-        contrib_chart.isInteractive = true
-        contrib_chart.zoomType = ZoomType.HORIZONTAL_AND_VERTICAL
+    private fun setGithubContribution(){
+        showLoading(true)
+        binding.contributorImg.visibility = View.GONE
 
-        //Onclick Listener
-        contrib_chart.setOnClickListener {
-            Toast.makeText(activity, (activity as MainActivity).applicationContext.getText(R.string.chartDetail), Toast.LENGTH_LONG).show()
+        val myWebView: WebView = binding.contributorImg
+        myWebView.loadUrl("https://ghchart.rshah.org/patriciafiona")
+
+        myWebView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String) {
+                showLoading(false)
+                binding.contributorImg.visibility = View.VISIBLE
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                showFailedGetDataFromAPI(activity as MainActivity)
+            }
         }
-
-        //In most cased you can call data model methods in builder-pattern-like manner.
-        val column: Column = Column().setValues(ContributionData.contributionData())
-        column.setHasLabels(true)
-        val columns: MutableList<Column> = ArrayList()
-        columns.add(column)
-
-        val data = ColumnChartData()
-        data.columns = columns
-        data.axisXBottom = Axis.generateAxisFromRange(1f,12f, 1f)
-
-        contrib_chart.columnChartData = data
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,6 +70,14 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 }

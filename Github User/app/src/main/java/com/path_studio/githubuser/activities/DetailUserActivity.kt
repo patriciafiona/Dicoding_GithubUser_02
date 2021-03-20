@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.faltenreich.skeletonlayout.Skeleton
 import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
@@ -33,6 +34,8 @@ class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var gitHubServiceitHubService: GitHubService
 
+    private lateinit var skeleton: Skeleton
+
     companion object {
         const val EXTRA_USER = "extra_user"
         const val MY_USERNAME = "patriciafiona"
@@ -42,6 +45,9 @@ class DetailUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //init Skeleton
+        skeleton = binding.skeletonLayout
 
         //init
         showLoading(true)
@@ -101,6 +107,7 @@ class DetailUserActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<User>, error: Throwable) {
                 Log.e("tag", "The Error is: ${error.message}")
+                Utils.showFailedGetDataFromAPI(this@DetailUserActivity)
             }
         })
     }
@@ -125,6 +132,7 @@ class DetailUserActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<User>>, error: Throwable) {
                 Log.e("tag", "The Error is: ${error.message}")
+                Utils.showFailedGetDataFromAPI(this@DetailUserActivity)
             }
         })
     }
@@ -192,6 +200,7 @@ class DetailUserActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
                 Log.e("tag", "The Error is: ${t.message}")
+                Utils.showFailedGetDataFromAPI(this@DetailUserActivity)
             }
 
         })
@@ -212,9 +221,9 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            binding.progressBar.visibility = View.VISIBLE
+            skeleton.showSkeleton()
         } else {
-            binding.progressBar.visibility = View.GONE
+            skeleton.showOriginal()
         }
     }
 

@@ -11,7 +11,7 @@
     <string name="starred">Berbintang</string>
     <string name="notifications">Notifikasi</string>
     <string name="details">Detail</string>
-    <string name="starred_repositories">Favorit Repositori</string>
+    <string name="starred_repositories">Repositori Berbintang</string>
     <string name="no_data_found">Data Tidak Ditemukan</string>
     <string name="trending_now">Sedang Tren Sekarang</string>
 
@@ -46,16 +46,20 @@
     <string name="temp_notification_title">Ini adalah detail dari Notifikasi</string>
     <string name="temp_days">8d</string>
     <string name="temp_programming_language">Java</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temp_find_inspiration">Temukan inspirasi proyek melalui fitur \"Trending Now"\</string>
 
     <string name="my_work">Pekerjaan Saya</string>
     <string name="issues">Masalah</string>
     <string name="discussions">Diskusi</string>
-    <string name="contributors">Kontributor</string>
+    <string name="contribution">Kontribusi</string>
     <string name="favorites">Favorit</string>
     <string name="favorite_detail">Tambahkan repositori favorit untuk akses cepat kapan saja, tanpa harus mencari</string>
     <string name="add_repositories">Tambah Repositori</string>
     <string name="chartDetail">Grafik kontribusi profil Anda adalah catatan kontribusi yang Anda buat ke repositori GitHub.</string>
+
+    <string name="failed_text">Gagal mengambil data dari server. Silahkan coba kembali.</string>
+
+    <string name="patricia_fiona">Patricia Fiona</string>
+    <string name="android_developer">Android Developer</string>
+    <string name="myEmail">patriciafiona3@gmail.com</string>
 </resources>

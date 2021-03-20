@@ -167,8 +167,18 @@
                     style="@style/HomeTitleTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/contributors"
+                    android:text="@string/contribution"
                     android:textSize="18sp" />
+
+                <!-- Progress Bar -->
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
 
                 <WebView
                     android:id="@+id/contributor_img"
@@ -176,12 +186,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     tools:ignore="WebViewLayout" />
-
-                <lecho.lib.hellocharts.view.ColumnChartView
-                    android:id="@+id/contributions_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginVertical="10dp" />
 
                 <View
                     android:layout_width="match_parent"

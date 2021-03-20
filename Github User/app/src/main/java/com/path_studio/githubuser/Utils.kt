@@ -1,5 +1,8 @@
 package com.path_studio.githubuser
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
@@ -7,6 +10,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
+
 
 object Utils {
 
@@ -98,6 +102,19 @@ object Utils {
 
         //else
         return listOf("?", "-")
+    }
+
+    fun showFailedGetDataFromAPI(context: Context){
+        val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder1.setMessage(context.getText(R.string.failed_text))
+        builder1.setCancelable(true)
+
+        builder1.setPositiveButton(
+            "Oke"
+        ) { dialog, _ -> dialog.cancel() }
+
+        val alert11: AlertDialog = builder1.create()
+        alert11.show()
     }
 
 }
