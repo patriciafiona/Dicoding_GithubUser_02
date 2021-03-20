@@ -2,7 +2,6 @@ package com.path_studio.githubuser
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat

@@ -28,10 +28,6 @@ interface GitHubService {
         @Header("Authorization") accessToken: String
     ): Call<List<Repository>>
 
-    //Get My Repositories (All public, private, and colab repo)
-    @GET("user/repos?per_page=100")
-    fun getMyRepositories(@Header("Authorization") accessToken: String): Call<List<Repository>>
-
     //Get User Organization
     @GET("users/{username}/orgs")
     fun getUserOrganizations(

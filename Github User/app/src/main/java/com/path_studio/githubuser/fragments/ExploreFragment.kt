@@ -1,8 +1,6 @@
 package com.path_studio.githubuser.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,34 +8,24 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.faltenreich.skeletonlayout.Skeleton
-import com.faltenreich.skeletonlayout.applySkeleton
 import com.path_studio.githubuser.R
-import com.path_studio.githubuser.Utils
-import com.path_studio.githubuser.activities.DetailFollowActivity
 import com.path_studio.githubuser.activities.MainActivity
-import com.path_studio.githubuser.adapters.ListFollowAdapter
 import com.path_studio.githubuser.adapters.ListTrendingRepoAdapter
 import com.path_studio.githubuser.databinding.FragmentExploreBinding
-import com.path_studio.githubuser.databinding.FragmentProfileBinding
-import com.path_studio.githubuser.models.CreateAPI
-import com.path_studio.githubuser.models.Repository
+import com.path_studio.githubuser.models.MainViewModel
 import com.path_studio.githubuser.models.SearchRepo
-import com.path_studio.githubuser.models.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ExploreFragment : Fragment() {
 
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var TrendingRepo: SearchRepo
-
-    private lateinit var skeleton: Skeleton
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var trendingRepo: SearchRepo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,11 +34,10 @@ class ExploreFragment : Fragment() {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        //init Skeleton
-        skeleton = binding.rvDiscover.applySkeleton(R.layout.item_col_trending_repo)
-        skeleton.maskCornerRadius = 20f
-
         showLoading(true)
+
+        //init Main view model
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         //Set Animation
         settingAnimation()
@@ -81,30 +68,14 @@ class ExploreFragment : Fragment() {
     }
 
     private fun getTrendingFromAPI(){
-        //get last week date
-        val lastWeek:String = Utils.getDaysAgo(7)
-        val query = "created:>$lastWeek"
+        mainViewModel.setTrendingRepository(activity as MainActivity)
 
-        CreateAPI.create().getTrendingRepo(query, ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<SearchRepo> {
-            override fun onResponse(
-                call: Call<SearchRepo>,
-                response: Response<SearchRepo>
-            ) {
-                if (response.isSuccessful) {
-                    TrendingRepo = response.body() as SearchRepo
-
-                    //set recycle view
-                    showRV()
-
-                    showLoading(false)
-                }
+        mainViewModel.getTrendingFromAPI().observe(activity as MainActivity, { items ->
+            if (items != null) {
+                trendingRepo = items
+                showRV()
+                showLoading(false)
             }
-
-            override fun onFailure(call: Call<SearchRepo>, t: Throwable) {
-                Log.e("tag", "The Error is: ${t.message}")
-                Utils.showFailedGetDataFromAPI(activity as MainActivity)
-            }
-
         })
     }
 
@@ -112,7 +83,7 @@ class ExploreFragment : Fragment() {
         val rvTrending: RecyclerView = binding.rvDiscover
         rvTrending.setHasFixedSize(true)
 
-        showRecyclerList(rvTrending, TrendingRepo)
+        showRecyclerList(rvTrending, trendingRepo)
     }
 
     private fun showRecyclerList(rv: RecyclerView, list: SearchRepo) {
@@ -123,9 +94,9 @@ class ExploreFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            skeleton.showSkeleton()
+            binding.progressBar.visibility = View.VISIBLE
         } else {
-            skeleton.showOriginal()
+            binding.progressBar.visibility = View.GONE
         }
     }
 

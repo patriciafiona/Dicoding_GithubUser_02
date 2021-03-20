@@ -2,11 +2,9 @@ package com.path_studio.githubuser.activities
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
-import com.path_studio.githubuser.R
+import androidx.appcompat.app.AppCompatActivity
 import com.path_studio.githubuser.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {

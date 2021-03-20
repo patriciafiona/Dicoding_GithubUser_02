@@ -1,8 +1,8 @@
 package com.path_studio.githubuser.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

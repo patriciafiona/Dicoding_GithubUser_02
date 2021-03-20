@@ -1,27 +1,22 @@
 package com.path_studio.githubuser.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
-import com.path_studio.githubuser.activities.DetailUserActivity
-import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.adapters.ListFollowAdapter
 import com.path_studio.githubuser.databinding.FragmentFollowerBinding
-import com.path_studio.githubuser.models.CreateAPI
+import com.path_studio.githubuser.models.MainViewModel
 import com.path_studio.githubuser.models.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FollowerFragment : Fragment() {
 
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var listFollower:ArrayList<User>
 
     private var _binding: FragmentFollowerBinding? = null
@@ -37,6 +32,8 @@ class FollowerFragment : Fragment() {
         //show Loading
         showLoading(true)
 
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
         //get list following
         getFollowerFromAPIAndShow()
 
@@ -44,25 +41,13 @@ class FollowerFragment : Fragment() {
     }
 
     private fun getFollowerFromAPIAndShow(){
-        CreateAPI.create().getUserFollowers(
-            DetailFollowActivity.USERNAME,
-            ProfileFragment.ACCESS_TOKEN
-        ).enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    listFollower = response.body() as ArrayList<User>
+        mainViewModel.setFollowers(activity as DetailFollowActivity, DetailFollowActivity.USERNAME)
 
-                    //show recycle view
-                    showRV()
-
-                    //hide loading indicator
-                    showLoading(false)
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, error: Throwable) {
-                Log.e("tag", "The Error is: ${error.message}")
-                Utils.showFailedGetDataFromAPI(activity as DetailUserActivity)
+        mainViewModel.getFollowers().observe(activity as DetailFollowActivity, {items ->
+            if (items != null) {
+                listFollower = items
+                showRV()
+                showLoading(false)
             }
         })
 

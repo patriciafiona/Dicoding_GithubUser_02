@@ -2,34 +2,33 @@ package com.path_studio.githubuser.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.faltenreich.skeletonlayout.Skeleton
 import com.path_studio.githubuser.BuildConfig
-import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.activities.DetailFollowActivity
-import com.path_studio.githubuser.activities.DetailUserActivity
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
 import com.path_studio.githubuser.databinding.FragmentProfileBinding
-import com.path_studio.githubuser.models.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.path_studio.githubuser.models.MainViewModel
+import com.path_studio.githubuser.models.Organization
+import com.path_studio.githubuser.models.Repository
+import com.path_studio.githubuser.models.User
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var listData: User
     private lateinit var listOrgs: ArrayList<Organization>
     private lateinit var listStarred: ArrayList<Repository>
@@ -37,8 +36,6 @@ class ProfileFragment : Fragment() {
     private lateinit var skeleton: Skeleton
 
     private var showDialog: Boolean = true //if one of the get method is already error, the other error won't show the Alert Dialog
-
-    private lateinit var gitHubServiceitHubService: GitHubService
 
     companion object {
         val MY_USERNAME = "patriciafiona"
@@ -58,8 +55,8 @@ class ProfileFragment : Fragment() {
         //show loading indicator
         showLoading(true)
 
-        //init
-        gitHubServiceitHubService = CreateAPI.create()
+        //init Main view model
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         //get Data From API
         getAndShowDataFromAPI()
@@ -79,99 +76,34 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getAndShowDataFromAPI(){
-        //get My Starred Repo
-        getMyStarredRepository()
+        showDialog = mainViewModel.setStarredRepository(activity as MainActivity, MY_USERNAME, showDialog)
+        showDialog = mainViewModel.setUserData(activity as MainActivity, MY_USERNAME, showDialog)
+        showDialog = mainViewModel.setUserOrganization(activity as MainActivity, showDialog)
 
-        //get User Detail data from API
-        getUserData()
-
-        //get User Organization list for get the total of organization
-        getUserOrganization()
-    }
-
-    private fun getUserData(){
-        gitHubServiceitHubService.getUserDetail(MY_USERNAME, ACCESS_TOKEN).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    listData = response.body() as User
-
-                    //Show Data
-                    showData()
-
-                    //set onclick on following and follower
-                    setOnClick()
-
-                    //hide loading indicator
-                    showLoading(false)
-                }
+        mainViewModel.getStarredRepository().observe(activity as MainActivity) { items ->
+            if (items != null) {
+                listStarred = items
+                binding.myStarred.text = listStarred.size.toString()
+                showPopularRepo()
             }
+        }
 
-            override fun onFailure(call: Call<User>, error: Throwable) {
-                Log.e("tag", "The Error is: ${error.message}")
-
-                if(showDialog){
-                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
-                    showDialog = false
-                }
+        mainViewModel.getUserData().observe(activity as MainActivity, {items ->
+            if (items != null) {
+                listData = items
+                showData()
+                setOnClick()
+                showLoading(false)
             }
         })
-    }
 
-    private fun getUserOrganization(){
-        gitHubServiceitHubService.getUserOrganizations(MY_USERNAME, ACCESS_TOKEN).enqueue(object : Callback<List<Organization>> {
-            override fun onResponse(
-                call: Call<List<Organization>>,
-                response: Response<List<Organization>>
-            ) {
-                if (response.isSuccessful) {
-                    listOrgs = response.body() as ArrayList<Organization>
-
-                    //show total repo
-                    binding.myOrganizations.text = listOrgs.size.toString()
-
-                }
+        mainViewModel.getListOrganizations().observe(activity as MainActivity, {items ->
+            if (items != null) {
+                listOrgs = items
+                binding.myOrganizations.text = listOrgs.size.toString()
             }
-
-            override fun onFailure(call: Call<List<Organization>>, t: Throwable) {
-                Log.e("tag", "The Error is: ${t.message}")
-
-                if(showDialog){
-                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
-                    showDialog = false
-                }
-            }
-
         })
-    }
 
-    private fun getMyStarredRepository(){
-        gitHubServiceitHubService.getUserStarredRepositories(MY_USERNAME, ACCESS_TOKEN).enqueue(object : Callback<List<Repository>> {
-            override fun onResponse(
-                call: Call<List<Repository>>,
-                response: Response<List<Repository>>
-            ) {
-                if (response.isSuccessful) {
-                    listStarred = response.body() as ArrayList<Repository>
-
-                    //show total repo
-                    binding.myStarred.text = listStarred.size.toString()
-
-                    //show popular repo using horizontal recycle view
-                    showPopularRepo()
-
-                }
-            }
-
-            override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                Log.e("tag", "The Error is: ${t.message}")
-
-                if(showDialog){
-                    Utils.showFailedGetDataFromAPI(activity as MainActivity)
-                    showDialog = false
-                }
-            }
-
-        })
     }
 
     private fun showData(){

@@ -9,6 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:elevation="10dp"
+            android:visibility="gone"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_discover" />
+
         <TextView
             android:id="@+id/textView10"
             android:layout_width="match_parent"
@@ -40,31 +55,24 @@
             android:text="@string/temp_find_inspiration"
             android:textColor="@color/purple_700"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/skeletonLayout"
+            app:layout_constraintBottom_toTopOf="@+id/rv_discover"
             app:layout_constraintStart_toEndOf="@+id/trending_banner_img"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
             app:layout_constraintWidth_percent="0.5" />
 
-        <com.faltenreich.skeletonlayout.SkeletonLayout
-            android:id="@+id/skeletonLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_discover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trending_banner_img">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_discover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="50dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_col_trending_repo" />
-
-        </com.faltenreich.skeletonlayout.SkeletonLayout>
+            app:layout_constraintTop_toBottomOf="@+id/trending_banner_img"
+            tools:listitem="@layout/item_col_trending_repo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

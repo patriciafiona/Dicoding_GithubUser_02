@@ -2,11 +2,12 @@ package com.path_studio.githubuser.activities
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,11 +18,7 @@ import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.adapters.ListPopularRepoAdapter
 import com.path_studio.githubuser.databinding.ActivityDetailUserBinding
 import com.path_studio.githubuser.fragments.ProfileFragment
-import com.path_studio.githubuser.models.CreateAPI
-import com.path_studio.githubuser.models.GitHubService
-import com.path_studio.githubuser.models.Repository
-import com.path_studio.githubuser.models.User
-import okhttp3.internal.Util
+import com.path_studio.githubuser.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,10 +26,10 @@ import retrofit2.Response
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
+
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var detailUser: User
     private lateinit var listStarred: ArrayList<Repository>
-
-    private lateinit var gitHubServiceitHubService: GitHubService
 
     private lateinit var skeleton: Skeleton
 
@@ -51,7 +48,7 @@ class DetailUserActivity : AppCompatActivity() {
 
         //init
         showLoading(true)
-        gitHubServiceitHubService = CreateAPI.create()
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         //set background animated
         setBackgroundAnimated()
@@ -83,31 +80,16 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun getAndSetUserData(username: String){
-        gitHubServiceitHubService.getUserDetail(username, ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    detailUser = response.body() as User
+        mainViewModel.setUserData(this, username)
 
-                    //check if user already followed by me: patricia fiona
-                    getAndCheckMyFollowing()
-
-                    //Show Data
-                    showData(detailUser)
-
-                    //get My Starred Repo
-                    getMyStarredRepository(detailUser.login.toString())
-
-                    //set onclick on following and follower
-                    setOnClick()
-
-                    //hide loading indicator
-                    showLoading(false)
-                }
-            }
-
-            override fun onFailure(call: Call<User>, error: Throwable) {
-                Log.e("tag", "The Error is: ${error.message}")
-                Utils.showFailedGetDataFromAPI(this@DetailUserActivity)
+        mainViewModel.getUserData().observe(this@DetailUserActivity, {items ->
+            if (items != null) {
+                detailUser = items
+                getAndCheckMyFollowing()
+                showData(detailUser)
+                getMyStarredRepository(detailUser.login.toString())
+                setOnClick()
+                showLoading(false)
             }
         })
     }
@@ -169,41 +151,28 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun getMyStarredRepository(username: String){
-        gitHubServiceitHubService.getUserStarredRepositories(username, ProfileFragment.ACCESS_TOKEN).enqueue(object : Callback<List<Repository>> {
-            override fun onResponse(
-                    call: Call<List<Repository>>,
-                    response: Response<List<Repository>>
-            ) {
-                if (response.isSuccessful) {
-                    listStarred = response.body() as ArrayList<Repository>
+        mainViewModel.setStarredRepository(this, username)
 
-                    //show total repo
-                    binding.detailUserStarred.text = listStarred.size.toString()
+        mainViewModel.getStarredRepository().observe(this) { items ->
+            if (items != null) {
+                listStarred = items
+                binding.detailUserStarred.text = listStarred.size.toString()
 
-                    //show popular repo using horizontal recycle view
-                    if(listStarred.isNotEmpty()){
-                        binding.rvUsersStarredRepo.visibility = View.VISIBLE
-                        binding.noData.visibility = View.GONE
-                        binding.noDataTxt.visibility = View.GONE
+                //show popular repo using horizontal recycle view
+                if(listStarred.isNotEmpty()){
+                    binding.rvUsersStarredRepo.visibility = View.VISIBLE
+                    binding.noData.visibility = View.GONE
+                    binding.noDataTxt.visibility = View.GONE
 
-                        showStarredRepo()
-                    }else{
-                        //show no data icon
-                        binding.rvUsersStarredRepo.visibility = View.GONE
-                        binding.noData.visibility = View.VISIBLE
-                        binding.noDataTxt.visibility = View.VISIBLE
-                    }
-
-
+                    showStarredRepo()
+                }else{
+                    //show no data icon
+                    binding.rvUsersStarredRepo.visibility = View.GONE
+                    binding.noData.visibility = View.VISIBLE
+                    binding.noDataTxt.visibility = View.VISIBLE
                 }
             }
-
-            override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                Log.e("tag", "The Error is: ${t.message}")
-                Utils.showFailedGetDataFromAPI(this@DetailUserActivity)
-            }
-
-        })
+        }
     }
 
     private fun showStarredRepo(){

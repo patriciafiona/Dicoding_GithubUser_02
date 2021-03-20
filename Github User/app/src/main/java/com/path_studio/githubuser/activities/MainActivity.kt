@@ -1,12 +1,12 @@
 package com.path_studio.githubuser.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -17,7 +17,6 @@ import com.path_studio.githubuser.BuildConfig
 import com.path_studio.githubuser.R
 import com.path_studio.githubuser.adapters.CustomSuggestionsAdapter
 import com.path_studio.githubuser.databinding.ActivityMainBinding
-import com.path_studio.githubuser.fragments.ProfileFragment
 import com.path_studio.githubuser.models.*
 import retrofit2.Call
 import retrofit2.Callback

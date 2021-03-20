@@ -1,21 +1,14 @@
 package com.path_studio.githubuser.fragments
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.path_studio.githubuser.R
 import com.path_studio.githubuser.Utils.showFailedGetDataFromAPI
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.databinding.FragmentHomeBinding

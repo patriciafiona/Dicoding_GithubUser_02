@@ -3,13 +3,13 @@ package com.path_studio.githubuser.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.path_studio.githubuser.activities.AboutActivity
-import com.path_studio.githubuser.activities.NotificationActivity
 import com.path_studio.githubuser.activities.MainActivity
+import com.path_studio.githubuser.activities.NotificationActivity
 import com.path_studio.githubuser.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
