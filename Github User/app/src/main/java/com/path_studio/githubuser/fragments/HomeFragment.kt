@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import com.faltenreich.skeletonlayout.Skeleton
 import com.path_studio.githubuser.Utils.showFailedGetDataFromAPI
 import com.path_studio.githubuser.activities.MainActivity
 import com.path_studio.githubuser.databinding.FragmentHomeBinding
@@ -19,6 +20,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var skeleton: Skeleton
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -26,13 +29,18 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        //init Skeleton
+        skeleton = binding.skeletonLayout
+
+        //show loading indicator
+        showLoading(true)
+
         setGithubContribution()
 
         return view
     }
 
     private fun setGithubContribution(){
-        showLoading(true)
         binding.contributorImg.visibility = View.GONE
 
         val myWebView: WebView = binding.contributorImg
@@ -67,8 +75,10 @@ class HomeFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
+            skeleton.showSkeleton()
             binding.progressBar.visibility = View.VISIBLE
         } else {
+            skeleton.showOriginal()
             binding.progressBar.visibility = View.GONE
         }
     }

@@ -15,6 +15,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter
 import com.path_studio.githubuser.BuildConfig
 import com.path_studio.githubuser.R
+import com.path_studio.githubuser.Utils
 import com.path_studio.githubuser.adapters.CustomSuggestionsAdapter
 import com.path_studio.githubuser.databinding.ActivityMainBinding
 import com.path_studio.githubuser.models.*
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 searchBar.setCustomSuggestionAdapter(customSuggestionsAdapter)
 
                 if (searchBar.text.isNotEmpty()) {
-                    //get data that contain searchBar.text
+                    showLoading(true)
                     getSearchUserResult(searchBar.text.toString())
                 } else {
                     searchBar.clearSuggestions()
@@ -112,11 +113,14 @@ class MainActivity : AppCompatActivity() {
 
                     customSuggestionsAdapter.suggestions = listSearchUserResult
                     searchBar.showSuggestionsList()
+                    showLoading(false)
                 }
             }
 
             override fun onFailure(call: Call<Search>, t: Throwable) {
                 Log.e("tag", "The Error is: ${t.message}")
+                Utils.showFailedGetDataFromAPI(this@MainActivity)
+                showLoading(false)
             }
 
         })
@@ -160,6 +164,14 @@ class MainActivity : AppCompatActivity() {
             1 -> {
                 searchBar.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

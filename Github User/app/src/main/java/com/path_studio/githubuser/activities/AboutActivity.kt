@@ -5,18 +5,30 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.faltenreich.skeletonlayout.Skeleton
 import com.path_studio.githubuser.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAboutBinding
+    private lateinit var skeleton: Skeleton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //init Skeleton
+        skeleton = binding.skeletonLayout
+
+        showLoading(true)
+
         setOnCLick()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        showLoading(false)
     }
 
     private fun setOnCLick(){
@@ -48,6 +60,14 @@ class AboutActivity : AppCompatActivity() {
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
         intent.data = Uri.parse(url)
         startActivity(intent)
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            skeleton.showSkeleton()
+        } else {
+            skeleton.showOriginal()
+        }
     }
 
 }
