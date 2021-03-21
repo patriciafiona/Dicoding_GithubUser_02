@@ -47,7 +47,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun setStarredRepository(context: Context, username: String, showDialog: Boolean): Boolean{
-        var status = true
+        var status = false
         CreateAPI.create().getUserStarredRepositories(
             username,
             ProfileFragment.ACCESS_TOKEN
@@ -98,7 +98,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun setUserData(context: Context, username: String, showDialog: Boolean): Boolean{
-        var status = true
+        var status = false
         CreateAPI.create().getUserDetail(
             username,
             ProfileFragment.ACCESS_TOKEN
@@ -141,7 +141,7 @@ class MainViewModel: ViewModel() {
     }
 
     fun setUserOrganization(context: Context, showDialog: Boolean): Boolean{
-        var status = true
+        var status = false
         CreateAPI.create().getUserOrganizations(
             ProfileFragment.MY_USERNAME,
             ProfileFragment.ACCESS_TOKEN
