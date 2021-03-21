@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchResult: Search
     private var listSearchUserResult: ArrayList<User> = ArrayList()
 
+    private lateinit var customSuggestionsAdapter: CustomSuggestionsAdapter
+
     companion object {
         val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
     }
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         //enable search bar callbacks
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val customSuggestionsAdapter = CustomSuggestionsAdapter(inflater, this@MainActivity)
+        customSuggestionsAdapter = CustomSuggestionsAdapter(inflater, this@MainActivity)
 
         searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
             override fun onSearchStateChanged(enabled: Boolean) {}
@@ -80,11 +82,8 @@ class MainActivity : AppCompatActivity() {
                 searchBar.setCustomSuggestionAdapter(customSuggestionsAdapter)
 
                 if (searchBar.text.isNotEmpty()) {
-                    if (searchBar.text.length > 1) {
-                        //get data that contain searchBar.text
-                        customSuggestionsAdapter.suggestions = getSearchUserResult(searchBar.text.toString())
-                        searchBar.showSuggestionsList()
-                    }
+                    //get data that contain searchBar.text
+                    getSearchUserResult(searchBar.text.toString())
                 } else {
                     searchBar.clearSuggestions()
                     searchBar.hideSuggestionsList()
@@ -109,7 +108,10 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     searchResult = response.body() as Search
-                    listSearchUserResult = searchResult.items // the result that stored in User is login, id, avatar_url, to get other we should call another api
+                    listSearchUserResult = searchResult.items
+
+                    customSuggestionsAdapter.suggestions = listSearchUserResult
+                    searchBar.showSuggestionsList()
                 }
             }
 
