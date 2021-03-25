@@ -106,7 +106,8 @@
                         app:layout_constraintEnd_toStartOf="@+id/detail_icon_location"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.3" />
+                        app:layout_constraintWidth_percent="0.3"
+                        android:contentDescription="@string/grey_star_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_starred"
@@ -128,7 +129,8 @@
                         app:layout_constraintEnd_toStartOf="@+id/detail_icon_repositories"
                         app:layout_constraintStart_toEndOf="@+id/detail_icon_star"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.4" />
+                        app:layout_constraintWidth_percent="0.4"
+                        android:contentDescription="@string/grey_location_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_location"
@@ -153,7 +155,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/detail_icon_location"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.3" />
+                        app:layout_constraintWidth_percent="0.3"
+                        android:contentDescription="@string/grey_repo_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_repositories"
@@ -190,7 +193,8 @@
                         android:layout_marginTop="16dp"
                         android:src="@drawable/ic_baseline_business_grey_24"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_details_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_details_title"
+                        android:contentDescription="@string/grey_company_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_company"
@@ -209,7 +213,8 @@
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ic_baseline_email_grey_24"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icon_d_01" />
+                        app:layout_constraintTop_toBottomOf="@+id/icon_d_01"
+                        android:contentDescription="@string/grey_email_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_email"
@@ -228,7 +233,8 @@
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ic_baseline_link_grey_24"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icon_d_02" />
+                        app:layout_constraintTop_toBottomOf="@+id/icon_d_02"
+                        android:contentDescription="@string/grey_link_icon" />
 
                     <TextView
                         android:id="@+id/detail_user_link"
@@ -248,7 +254,8 @@
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ic_baseline_person_outline_grey_24"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icon_d_03" />
+                        app:layout_constraintTop_toBottomOf="@+id/icon_d_03"
+                        android:contentDescription="@string/grey_user_outline_icon" />
 
                     <LinearLayout
                         android:id="@+id/followers_container"
@@ -283,7 +290,8 @@
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ic_baseline_dot_grey_10"
                         app:layout_constraintStart_toEndOf="@+id/followers_container"
-                        app:layout_constraintTop_toBottomOf="@+id/detail_user_link" />
+                        app:layout_constraintTop_toBottomOf="@+id/detail_user_link"
+                        android:contentDescription="@string/white_dot" />
 
                     <LinearLayout
                         android:id="@+id/followings_container"
@@ -357,7 +365,8 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView8"
+                        android:contentDescription="@string/no_data_img" />
 
                     <TextView
                         android:id="@+id/no_data_txt"

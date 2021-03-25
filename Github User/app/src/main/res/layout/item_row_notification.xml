@@ -15,7 +15,8 @@
         android:layout_marginTop="16dp"
         android:src="@color/grey_700"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/user_img" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/notification_status"

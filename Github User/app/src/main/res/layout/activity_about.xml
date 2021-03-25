@@ -23,7 +23,8 @@
                 android:src="@drawable/abstract_marble_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/about_background_img" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -33,7 +34,8 @@
                 android:src="@drawable/ic_wave"
                 app:layout_constraintBottom_toBottomOf="@+id/about_background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/white_wave_img" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="150dp"
@@ -87,22 +89,26 @@
                 <ImageButton
                     android:id="@+id/sm_facebook"
                     style="@style/SocialMediaIcons"
-                    android:src="@drawable/icon_facebook" />
+                    android:src="@drawable/icon_facebook"
+                    android:contentDescription="@string/fb_button" />
 
                 <ImageButton
                     android:id="@+id/sm_instagram"
                     style="@style/SocialMediaIcons"
-                    android:src="@drawable/icon_instagram" />
+                    android:src="@drawable/icon_instagram"
+                    android:contentDescription="@string/ig_button" />
 
                 <ImageButton
                     android:id="@+id/sm_linkedIn"
                     style="@style/SocialMediaIcons"
-                    android:src="@drawable/icon_linkedin" />
+                    android:src="@drawable/icon_linkedin"
+                    android:contentDescription="@string/linkedin_button" />
 
                 <ImageButton
                     android:id="@+id/sm_github"
                     style="@style/SocialMediaIcons"
-                    android:src="@drawable/icon_github" />
+                    android:src="@drawable/icon_github"
+                    android:contentDescription="@string/github_button" />
 
             </LinearLayout>
 

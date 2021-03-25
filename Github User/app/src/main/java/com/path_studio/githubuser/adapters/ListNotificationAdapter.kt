@@ -26,24 +26,24 @@ class ListNotificationAdapter(val list: ArrayList<Notification>, val context: Co
 
         when(data.reason){
             "security_alert" ->
-                holder.reason_icon.setImageResource(R.drawable.ic_baseline_warning_orange_24)
+                holder.reasonIcon.setImageResource(R.drawable.ic_baseline_warning_orange_24)
             else ->
-                holder.reason_icon.setImageResource(R.drawable.ic_baseline_help_outline_red_24)
+                holder.reasonIcon.setImageResource(R.drawable.ic_baseline_help_outline_red_24)
         }
 
         if(data.unread){
-            holder.status_icon.visibility = View.VISIBLE
+            holder.statusIcon.visibility = View.VISIBLE
         }else if(!data.unread){
-            holder.status_icon.visibility = View.GONE
+            holder.statusIcon.visibility = View.GONE
         }
 
         holder.title.text = data.subject.title
-        holder.fullname.text = data.repository.full_name
+        holder.fullName.text = data.repository.full_name
 
         //compare time after this notification created
         val detailCompare = Utils.checkDayswithToday(data.updated_at)
-        holder.created_at.text = detailCompare[0]
-        holder.detail_time.text = detailCompare[1]
+        holder.createdAt.text = detailCompare[0]
+        holder.detailTime.text = detailCompare[1]
 
     }
 
@@ -52,11 +52,11 @@ class ListNotificationAdapter(val list: ArrayList<Notification>, val context: Co
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var reason_icon: ImageView = itemView.findViewById(R.id.notification_reason)
-        var status_icon: CircleImageView = itemView.findViewById(R.id.notification_status)
-        var fullname: TextView = itemView.findViewById(R.id.notification_fullname)
+        var reasonIcon: ImageView = itemView.findViewById(R.id.notification_reason)
+        var statusIcon: CircleImageView = itemView.findViewById(R.id.notification_status)
+        var fullName: TextView = itemView.findViewById(R.id.notification_fullname)
         var title: TextView = itemView.findViewById(R.id.notification_title)
-        var created_at: TextView = itemView.findViewById(R.id.notification_days)
-        var detail_time: TextView = itemView.findViewById(R.id.notification_detail_time)
+        var createdAt: TextView = itemView.findViewById(R.id.notification_days)
+        var detailTime: TextView = itemView.findViewById(R.id.notification_detail_time)
     }
 }

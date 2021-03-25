@@ -46,7 +46,8 @@
             android:src="@drawable/search_illustration"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
-            app:layout_constraintWidth_percent="0.5" />
+            app:layout_constraintWidth_percent="0.5"
+            android:contentDescription="@string/trending_banner_img" />
 
         <TextView
             android:id="@+id/trending_banner_text"

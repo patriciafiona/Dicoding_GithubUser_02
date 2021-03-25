@@ -21,7 +21,8 @@
                 android:src="@drawable/github_logo_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/github_logo_img" />
 
             <!--Home Shortcut Menu Part-->
             <androidx.cardview.widget.CardView
@@ -62,7 +63,8 @@
                         android:src="@drawable/ic_baseline_warning_white_24"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView10"
-                        app:layout_constraintWidth_percent="0.1" />
+                        app:layout_constraintWidth_percent="0.1"
+                        android:contentDescription="@string/white_issue_icon" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -84,7 +86,8 @@
                         android:src="@drawable/ic_baseline_message_white_24"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                        app:layout_constraintWidth_percent="0.1" />
+                        app:layout_constraintWidth_percent="0.1"
+                        android:contentDescription="@string/white_discus_icon" />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -106,7 +109,8 @@
                         android:src="@drawable/ic_baseline_book_white_24"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView5"
-                        app:layout_constraintWidth_percent="0.1" />
+                        app:layout_constraintWidth_percent="0.1"
+                        android:contentDescription="@string/white_repo_icon" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -128,7 +132,8 @@
                         android:src="@drawable/ic_baseline_business_white_24"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                        app:layout_constraintWidth_percent="0.1" />
+                        app:layout_constraintWidth_percent="0.1"
+                        android:contentDescription="@string/white_company_icon" />
 
                     <TextView
                         android:id="@+id/textView6"

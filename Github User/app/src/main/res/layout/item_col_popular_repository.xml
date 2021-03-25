@@ -64,7 +64,8 @@
         android:src="@drawable/ic_baseline_star_yellow_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popular_repo_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/popular_repo_detail"
+        android:contentDescription="@string/yellow_star_icon" />
 
     <TextView
         android:id="@+id/popular_repo_favorite"

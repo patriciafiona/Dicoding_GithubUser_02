@@ -61,4 +61,37 @@
     <string name="patricia_fiona">Patricia Fiona</string>
     <string name="android_developer">Android Developer</string>
     <string name="myEmail">patriciafiona3@gmail.com</string>
+
+    <string name="not_following_anyone">User doesn\'t following anyone</string>
+    <string name="dont_have_followers">User doesn\'t have any followers</string>
+
+    <!-- Image Description -->
+    <string name="about_background_img">About Background Img</string>
+    <string name="white_wave_img">White Wave Img</string>
+    <string name="fb_button">FB Button</string>
+    <string name="ig_button">IG Button</string>
+    <string name="linkedin_button">LinkedIn Button</string>
+    <string name="github_button">Github Button</string>
+    <string name="white_dot">White Dot</string>
+    <string name="grey_star_icon">Grey Star Icon</string>
+    <string name="grey_location_icon">Grey Location Icon</string>
+    <string name="grey_repo_icon">Grey Repo Icon</string>
+    <string name="grey_company_icon">Grey Company Icon</string>
+    <string name="grey_email_icon">Grey Email Icon</string>
+    <string name="grey_link_icon">Grey Link Icon</string>
+    <string name="grey_user_outline_icon">Grey User Outline Icon</string>
+    <string name="no_data_img">No Data Img</string>
+    <string name="trending_banner_img">Trending Banner Img</string>
+    <string name="github_logo_img">Github Logo Img</string>
+    <string name="white_issue_icon">White Issue Icon</string>
+    <string name="white_discus_icon">White Discuss Icon</string>
+    <string name="white_repo_icon">White Repo Icon</string>
+    <string name="white_company_icon">White Company Icon</string>
+    <string name="grey_dot">Grey Dot</string>
+    <string name="white_star_icon">White Star Icon</string>
+    <string name="grey_notification_icon">Grey Notification Icon</string>
+    <string name="grey_language_icon">Grey Language Icon</string>
+    <string name="grey_about_icon">Grey About Icon</string>
+    <string name="yellow_star_icon">Yellow Star Icon</string>
+    <string name="user_img">User Img</string>
 </resources>

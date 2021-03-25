@@ -27,7 +27,8 @@
             android:src="@drawable/ic_baseline_notifications_grey_24"
             app:layout_constraintEnd_toStartOf="@+id/text_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            android:contentDescription="@string/grey_notification_icon" />
 
         <TextView
             android:id="@+id/text_account"
@@ -47,7 +48,8 @@
             android:src="@drawable/ic_baseline_language_black_24"
             app:layout_constraintEnd_toStartOf="@+id/text_language"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_account" />
+            app:layout_constraintTop_toBottomOf="@+id/icon_account"
+            android:contentDescription="@string/grey_language_icon" />
 
         <TextView
             android:id="@+id/text_language"
@@ -66,7 +68,8 @@
             android:src="@drawable/ic_baseline_info_black_24"
             app:layout_constraintEnd_toStartOf="@+id/text_about"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_language" />
+            app:layout_constraintTop_toBottomOf="@+id/icon_language"
+            android:contentDescription="@string/grey_about_icon" />
 
         <TextView
             android:id="@+id/text_about"
@@ -89,7 +92,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/icon_about"
-            app:layout_constraintWidth_percent="0.2" />
+            app:layout_constraintWidth_percent="0.2"
+            android:contentDescription="@string/github_logo_img" />
 
         <TextView
             android:id="@+id/textView2"

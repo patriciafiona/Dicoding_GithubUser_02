@@ -24,7 +24,7 @@ class DetailFollowActivity : AppCompatActivity() {
             R.string.follower
         )
 
-        val EXTRA_DETAIL_USER = "EXTRA_DETAIL_USERNAME"
+        const val EXTRA_DETAIL_USER = "EXTRA_DETAIL_USERNAME"
         var USERNAME = ""
     }
 

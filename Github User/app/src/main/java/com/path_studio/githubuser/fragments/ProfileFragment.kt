@@ -26,7 +26,7 @@ import com.path_studio.githubuser.models.User
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentProfileBinding
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var listData: User
@@ -38,14 +38,14 @@ class ProfileFragment : Fragment() {
     private var showDialog: Boolean = true //if one of the get method is already error, the other error won't show the Alert Dialog
 
     companion object {
-        val MY_USERNAME = "patriciafiona"
-        val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
+        const val MY_USERNAME = "patriciafiona"
+        const val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var customSuggestionsAdapter: CustomSuggestionsAdapter
 
     companion object {
-        val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
+        const val ACCESS_TOKEN = "token " + BuildConfig.GITHUB_API_KEY
     }
 
     private lateinit var binding: ActivityMainBinding

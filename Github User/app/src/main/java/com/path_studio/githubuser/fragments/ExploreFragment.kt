@@ -22,7 +22,7 @@ import com.path_studio.githubuser.models.SearchRepo
 class ExploreFragment : Fragment() {
 
     private var _binding: FragmentExploreBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentExploreBinding
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var trendingRepo: SearchRepo
@@ -30,7 +30,7 @@ class ExploreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = binding.root
 

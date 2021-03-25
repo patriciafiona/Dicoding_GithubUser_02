@@ -20,12 +20,12 @@ class FollowerFragment : Fragment() {
     private lateinit var listFollower:ArrayList<User>
 
     private var _binding: FragmentFollowerBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentFollowerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -54,10 +54,18 @@ class FollowerFragment : Fragment() {
     }
 
     private fun showRV(){
-        val rvListFollowing: RecyclerView = binding.rvListFollower
-        rvListFollowing.setHasFixedSize(true)
+        if(listFollower.size > 0){
+            binding.noData.visibility = View.GONE
+            binding.noRvData.visibility = View.GONE
 
-        showRecyclerList(rvListFollowing, listFollower)
+            val rvListFollowing: RecyclerView = binding.rvListFollower
+            rvListFollowing.setHasFixedSize(true)
+
+            showRecyclerList(rvListFollowing, listFollower)
+        }else{
+            binding.noData.visibility = View.VISIBLE
+            binding.noRvData.visibility = View.VISIBLE
+        }
     }
 
     private fun showRecyclerList(rv: RecyclerView, list: ArrayList<User>) {
